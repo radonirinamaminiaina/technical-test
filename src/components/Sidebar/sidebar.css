@@ -1,2 +1,4 @@
-.sidebar.sticky {
+.sidebar.sticky ul {
+  position: sticky;
+  top: 130px;
 }
