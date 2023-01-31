@@ -1,8 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import { useTypedSelector } from '@/app/store';
 import { memo } from 'react';
+import isEqual from 'lodash/isEqual';
 import './styles.css';
+import { useDispatch } from 'react-redux';
+import PushModule from '@/app/store/PushModule'
 
 /**
  * Here we are 10 tech stacks list.
@@ -17,10 +21,12 @@ import './styles.css';
 
 const ItemList = () => {
 
-    const techs = ["HTML/CSS", "React", "VueJs", "NodeJs", "Typescript", "Java", "Python", "PHP", "Go", "C#"];
+    const { pushData: techs } = useTypedSelector(({ push }) => push, isEqual);
+
+    const dispatch = useDispatch()
 
     const addJsToTheList = () => {
-
+        dispatch(PushModule.actions.setPushData('Javascript'))
     }
 
     return (
