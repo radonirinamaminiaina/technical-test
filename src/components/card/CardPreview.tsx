@@ -47,6 +47,43 @@ function CardPreview() {
           <img src="/images/ps5.png" />
         </figure>
       </div>
+      <div className='preview-card__bottom'>
+        <div className='preview-card__desc'>
+        <h2>Dual Sense</h2>
+        <p>DualSense also adds a build-in microphone array, which will enable players to easily chat with friends without a headset...</p>
+        </div>
+        <div className='preview-card__option'>
+          <div className='preview-card__option-item'>
+            <div className='preview-card__option-checkbox'>
+              <input type="checkbox" name="chec" />
+              <div></div>
+            </div>
+            <div>
+              <h4>Futuristic</h4>
+              <p>Design</p>
+            </div>
+          </div>
+          <div className='preview-card__option-item'>
+            <div className='preview-card__option-checkbox'>
+              <input type="checkbox" name="chec" />
+              <div></div>
+            </div>
+            <div>
+              <h4>Built-in</h4>
+              <p>Microphone</p>
+            </div>
+          </div>
+        </div>
+        <div className='preview-card__footer'>
+          <span>0.78 ETH</span>
+          <button className='preview-card__buy'>
+            Buy
+            <span>
+              <CardBackIcon />
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
