@@ -1,3 +1,5 @@
+import { Node } from "typescript";
+
 interface FetchOptions extends RequestInit {
   // number of retries before returning the error
   retries?: number;
@@ -29,7 +31,34 @@ interface FetchOptions extends RequestInit {
  * @returns
  */
 export default async function fetchEnhanced(url: string, o: FetchOptions): Promise<Response> {
-  const { retries = 0, timeout = 0, ...options } = o || {};
-  console.log('additional options', { retries, timeout });
-  return fetch(url, options);
+  let { retries = 0, timeout = 0, ...options } = o || {};
+
+  return new Promise<Response>(async (resolve, reject) => {
+    let time: any = 0
+    const retryFlow = (retries: number, error: string) => {
+      retries--
+      console.log('Attempted left number', retries)
+      if (retries === 0) {
+        reject(error)
+      } else {
+        time = setTimeout(() => {
+          o.retries = retries
+          clearTimeout(time)
+          fetchEnhanced(url, o)
+        }, timeout)
+      }
+    }
+    
+    const data = await fetch(url, options)
+    
+    if (data.status >= 400) {
+      retryFlow(retries, data.statusText)   
+    } else {
+      clearTimeout(time)
+    }
+
+    return resolve(data)
+
+  })
+
 }
